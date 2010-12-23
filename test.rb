@@ -2,6 +2,7 @@ require 'rubygems'
 require 'sinatra'
 
 get '/' do
-  eval "'hello'"
+  asdf = 5
+  eval "puts #{params['something']}"
 end
 
