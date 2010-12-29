@@ -1,16 +1,28 @@
 require 'rubygems'
 require 'sinatra'
-require 'about_arrays'
+require File.expand_path(File.dirname(__FILE__) + '/koans/proxy')
 
+def input
+  params[:input] || []
+end
 get '/' do
-  # IO.read("about_arrays.rb").gsub("\\s", "&nbsp;").gsub(/__/, "<input type='text' />").gsub(/\\n/, "<br />")
-  file = IO.read("about_arrays.rb")
+  count = 0
 
-  # index of __def
-  # index of __end + 5
-  start  = file.index('  def')
-  theend = file.index('  end') + 5
+  runnable_code = IO.read("koans/about_arrays.rb").gsub('/edgecase','/koans/edgecase').gsub(/ __/) do |match|
+    x = input[count].to_s == "" ? " __" : " #{input[count]}"
+    count = count + 1
+    x
+  end
 
-  file[start..theend]
+  Proxy.proxy_eval(runnable_code)
+  runnable_code
+# 
+#   inputs = IO.read("koans/about_arrays.rb").gsub("\\s", "&nbsp;").gsub( / __/) do |match|
+#     x = input[count]
+#     count = count + 1
+#     "<input type='text' name='input[]' value='#{x}' />"
+#   end.gsub(/\\n/, "<br />")
+# 
+#   "<form><input type='submit' />#{inputs}</form>"
 end
 
