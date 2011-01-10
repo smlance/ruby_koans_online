@@ -32,12 +32,12 @@ get '/' do
             #{runnable_code}
             path = EdgeCase::ThePath.new
             path.online_walk
-            RESULTS[:pass_count] = path.sensei.pass_count - 1
+            RESULTS[:pass_count] = path.sensei.pass_count
             RESULTS[:failures] = path.sensei.failures
           end
         end
     rescue SecurityError => se
-      RESULTS[:error] = \"What do you think you're doing, Dave? \"
+      RESULTS[:error] = \"What do you think you're doing, Dave? \" + se.message + se.backtrace.join('<br/>')
     rescue TimeoutError => te
       RESULTS[:error] = 'Do you have an infinite loop?'
     rescue StandardError => e
