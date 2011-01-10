@@ -5,7 +5,7 @@ EDGECASE_OVERRIDES = IO.read("overrides.rb")
 require File.expand_path(File.dirname(__FILE__) + '/string')
 
 def input
-  (params[:input] || []).map{|i| ["`","exec","system","command"].any?{|x| i.include? x } ? ':oP' : i }
+  (params[:input] || []).map{|i| ["`","exec","system","command","open"].any?{|x| i.include? x } ? ':oP' : i }
 end
 
 get '/' do
