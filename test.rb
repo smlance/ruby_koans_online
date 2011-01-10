@@ -54,7 +54,7 @@ get '/' do
   failures = results[:failures]
   inputs = ARRAY_ORIGINAL.
     gsub("\s", "&nbsp;").
-    swap_input_fields(input, pass_count, failures.map(&:message))
+    swap_input_fields(input, pass_count, failures.map{|f| "#{f.message} #{f.backtrace} #{f.inspect}"})
 
   page = "<form>
   <div style='position: absolute; height: 100%; width: 60%; overflow: auto;'>
