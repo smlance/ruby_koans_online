@@ -1,8 +1,6 @@
 #!/usr/bin/env ruby
 # -*- ruby -*-
 
-require 'test/unit/assertions'
-
 # --------------------------------------------------------------------
 # Support code for the Ruby Koans.
 # --------------------------------------------------------------------
@@ -90,10 +88,10 @@ module EdgeCase
 
     module_function
 
-    COLORS.each do |color, value|
-      module_eval "def #{color}(string); colorize(string, #{value}); end"
-      module_function color
-    end
+    # COLORS.each do |color, value|
+    #   module_eval "def #{color}(string); colorize(string, #{value}); end"
+    #   module_function color
+    # end
 
     def colorize(string, color_value)
       if use_colors?

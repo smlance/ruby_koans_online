@@ -2,7 +2,7 @@ require 'rubygems'
 require 'sinatra'
 require 'timeout'
 require File.expand_path(File.dirname(__FILE__) + '/string')
-EDGECASE_CODE      = IO.read("koans/edgecase.rb").split(/END\s?\{/).first
+EDGECASE_CODE      = IO.read("koans/edgecase.rb").remove_require_lines.split(/END\s?\{/).first
 EDGECASE_OVERRIDES = IO.read("overrides.rb")
 ARRAY_ORIGINAL     = IO.read("koans/about_arrays.rb").remove_require_lines
 
@@ -18,15 +18,13 @@ get '/' do
     count = count + 1
     x
   end
-  module RunResults
-    SENSEI = nil
-    ERRORS = ""
-  end
   unique_id = rand(10000)
   runnable_code = "
+  require 'timeout'
+  require 'test/unit/assertions'
+  RESULTS = {:error => '', :failures => [], :pass_count => 0}
   $SAFE = 3
     begin
-      Timeout::timeout(2) {
         module KoanArena
           module UniqueRun#{unique_id}
             #{::EDGECASE_CODE}
@@ -34,26 +32,27 @@ get '/' do
             #{runnable_code}
             path = EdgeCase::ThePath.new
             path.online_walk
-            ::RunResults::SENSEI = path.sensei
+            RESULTS[:pass_count] = path.sensei.pass_count - 1
+            RESULTS[:failures] = path.sensei.failures
           end
         end
-      }
-    rescue SecurityError
-      ::RunResults::ERRORS = \"What do you think you're doing, Dave?\"
+    rescue SecurityError => se
+      RESULTS[:error] = \"What do you think you're doing, Dave? \"
     rescue TimeoutError => te
-      ::RunResults::ERRORS = 'Do you have an infinite loop?'
+      RESULTS[:error] = 'Do you have an infinite loop?'
     rescue StandardError => e
-      ::RunResults::ERRORS = [e.message, e.backtrace].flatten.join('<br/>')
+      RESULTS[:error] = [e.message, e.backtrace].flatten.join('<br/>')
     end
     KoanArena.send(:remove_const, :UniqueRun#{unique_id})
+    RESULTS
   "
-  Thread.new { eval runnable_code, TOPLEVEL_BINDING }.value
+  results = Thread.new { eval runnable_code, TOPLEVEL_BINDING }.value
 
-  pass_count = (RunResults::SENSEI && RunResults::SENSEI.pass_count) || 0
-  failures = (RunResults::SENSEI && RunResults::SENSEI.failures.map(&:message)) || []
+  pass_count = results[:pass_count]
+  failures = results[:failures]
   inputs = ARRAY_ORIGINAL.
     gsub("\s", "&nbsp;").
-    swap_input_fields(input, pass_count, failures)
+    swap_input_fields(input, pass_count, failures.map(&:message))
 
   page = "<form>
   <div style='position: absolute; height: 100%; width: 60%; overflow: auto;'>
@@ -65,7 +64,7 @@ get '/' do
     #{pass_count}<br/>
     #{failures.join('<br/>')}
     #{failures.count}
-    #{RunResults::ERRORS}
+    #{results[:error]}
   </div>
   </form>
   <pre style='position:absolute;top:500px'>

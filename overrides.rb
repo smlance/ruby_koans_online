@@ -1,12 +1,23 @@
 module EdgeCase
+  class << self
+    def simple_output; false; end
+  end
   module Color
     module_function
     # def use_colors?
     #   false
     # end
-    COLORS.each do |color, value|
-      module_eval %{def #{color}(string); "<div style='color:#{color};'>\#\{string\}</div>"; end}
-      module_function color
+    # COLORS.each do |color, value|
+    #   module_eval %{def #{color}(string); "<div style='color:#{color};'>\#\{string\}</div>"; end}
+    #   module_function color
+    # end
+    COLORS = {
+      :clear   => 0,  :black   => 30, :red   => 31,
+      :green   => 32, :yellow  => 33, :blue  => 34,
+      :magenta => 35, :cyan    => 36,
+    }
+    def method_missing(method_name,string)
+      "<div style='color:#{method_name};'>\#\{string\}</div>"
     end
 
   end
