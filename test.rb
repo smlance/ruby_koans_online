@@ -1,17 +1,19 @@
 require 'rubygems'
 require 'sinatra'
+require 'timeout'
+require File.expand_path(File.dirname(__FILE__) + '/string')
 EDGECASE_CODE      = IO.read("koans/edgecase.rb").split(/END\s?\{/).first
 EDGECASE_OVERRIDES = IO.read("overrides.rb")
-require File.expand_path(File.dirname(__FILE__) + '/string')
+ARRAY_ORIGINAL     = IO.read("koans/about_arrays.rb").remove_require_lines
 
 def input
-  (params[:input] || []).map{|i| ["`","exec","system","command","open","File"].any?{|x| i.include? x } ? ':oP' : i }
+  params[:input] || []
 end
 
 get '/' do
   count = 0
 
-  runnable_code = IO.read("koans/about_arrays.rb").remove_require_lines.gsub(/__/) do |match|
+  runnable_code = ARRAY_ORIGINAL.gsub(/__/) do |match|
     x = input[count].to_s == "" ? "__" : " #{input[count]}"
     count = count + 1
     x
@@ -22,7 +24,7 @@ get '/' do
   end
   unique_id = rand(10000)
   runnable_code = "
-  require 'timeout'
+  $SAFE = 3
     begin
       Timeout::timeout(2) {
         module KoanArena
@@ -36,19 +38,20 @@ get '/' do
           end
         end
       }
+    rescue SecurityError
+      ::RunResults::ERRORS = \"What do you think you're doing, Dave?\"
     rescue TimeoutError => te
       ::RunResults::ERRORS = 'Do you have an infinite loop?'
     rescue StandardError => e
       ::RunResults::ERRORS = [e.message, e.backtrace].flatten.join('<br/>')
     end
+    KoanArena.send(:remove_const, :UniqueRun#{unique_id})
   "
-
-  eval(runnable_code)
+  Thread.new { eval runnable_code, TOPLEVEL_BINDING }.value
 
   pass_count = (RunResults::SENSEI && RunResults::SENSEI.pass_count) || 0
   failures = (RunResults::SENSEI && RunResults::SENSEI.failures.map(&:message)) || []
-  inputs = IO.read("koans/about_arrays.rb").
-    remove_require_lines.
+  inputs = ARRAY_ORIGINAL.
     gsub("\s", "&nbsp;").
     swap_input_fields(input, pass_count, failures)
 
@@ -68,7 +71,6 @@ get '/' do
   <pre style='position:absolute;top:500px'>
   </pre>
   "
-  eval("KoanArena.send(:remove_const, :UniqueRun#{unique_id})")
   page
 end
 
