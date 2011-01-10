@@ -20,7 +20,7 @@ class String
         "#{line}</div>"
       else
         line.gsub(/__/) do |match|
-          x = input_values[count].gsub("'", "&apos;")
+          x = input_values[count].to_s.gsub("'", "&apos;")
           count = count + 1
           "<input type='text' name='input[]' value='#{x}\' />"
         end
