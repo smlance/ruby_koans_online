@@ -25,6 +25,7 @@ get '/' do
   RESULTS = {:error => '', :failures => [], :pass_count => 0}
   $SAFE = 3
     begin
+      Timeout.timeout(2) {
         module KoanArena
           module UniqueRun#{unique_id}
             #{::EDGECASE_CODE}
@@ -36,14 +37,15 @@ get '/' do
             RESULTS[:failures] = path.sensei.failures
           end
         end
+        KoanArena.send(:remove_const, :UniqueRun#{unique_id})
+      }
     rescue SecurityError => se
       RESULTS[:error] = \"What do you think you're doing, Dave? \" + se.message + se.backtrace.join('<br/>')
     rescue TimeoutError => te
       RESULTS[:error] = 'Do you have an infinite loop?'
     rescue StandardError => e
-      RESULTS[:error] = [e.message, e.backtrace].flatten.join('<br/>')
+      RESULTS[:error] = ['standarderror', e.message, e.backtrace, e.inspect].flatten.join('<br/>')
     end
-    KoanArena.send(:remove_const, :UniqueRun#{unique_id})
     RESULTS
   "
   results = Thread.new { eval runnable_code, TOPLEVEL_BINDING }.value
