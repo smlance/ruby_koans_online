@@ -21,20 +21,26 @@ get '/' do
     ERRORS = ""
   end
   unique_id = rand(10000)
-  runnable_code = "begin
-  module KoanArena
-    module UniqueRun#{unique_id}
-      #{::EDGECASE_CODE}
-      #{::EDGECASE_OVERRIDES}
-      #{runnable_code}
-      path = EdgeCase::ThePath.new
-      path.online_walk
-      ::RunResults::SENSEI = path.sensei
+  runnable_code = "
+  require 'timeout'
+    begin
+      Timeout::timeout(2) {
+        module KoanArena
+          module UniqueRun#{unique_id}
+            #{::EDGECASE_CODE}
+            #{::EDGECASE_OVERRIDES}
+            #{runnable_code}
+            path = EdgeCase::ThePath.new
+            path.online_walk
+            ::RunResults::SENSEI = path.sensei
+          end
+        end
+      }
+    rescue TimeoutError => te
+      ::RunResults::ERRORS = 'Do you have an infinite loop?'
+    rescue StandardError => e
+      ::RunResults::ERRORS = [e.message, e.backtrace].flatten.join('<br/>')
     end
-  end
-  rescue StandardError => e
-    ::RunResults::ERRORS = [e.message, e.backtrace].flatten.join('<br/>')
-  end
   "
 
   eval(runnable_code)

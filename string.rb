@@ -30,7 +30,7 @@ class String
   def fail_message(failures, fail_index)
     fail_message = ''
     if fail_index >= 0
-      fail_message = (failures[fail_index])
+      fail_message = failures[fail_index] || ''
       if fail_message.include? "FILL ME IN"
         fail_message = "Please meditate on the following." 
       else
