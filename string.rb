@@ -91,7 +91,7 @@ class String
         method_name = (methodx = true_line.match(/test_\S*/)) && methodx[0]
         failure = failures[method_name.to_sym]
         "#{fail_message(failure)}
-        <div nowrap='nowrap' style='background-color:#{failure ? 'red' : 'green'}'>
+        <div nowrap='nowrap' style='background-color:#{failure ? '#FF9999' : '#CCFFCC'}'>
         #{line}"
       elsif method_area && true_line.match(/^\s{#{method_indentation}}end/)
         method_area = false

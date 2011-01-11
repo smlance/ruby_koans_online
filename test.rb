@@ -76,12 +76,7 @@ get '/' do
       gsub("\s", "&nbsp;").
       swap_input_fields(input, pass_count, failures)
 
-    page = "<form>
-    <input type='hidden' name='koan' value='#{current_koan_name}'/>
-    <div nowrap='nowrap' style='white-space: nowrap; position: absolute; height: 100%; width: 60%; overflow: auto; font-family: monospace;'>
-       #{inputs}
-    </div>
-    <div style='position: absolute; right: 0px; width: 38%;'>
+    error_panel = "<div style='position: absolute; right: 0px; width: 38%;'>
       <input type='submit' value='Meditate'/><br/>
       Results
       #{pass_count}<br/>
@@ -89,12 +84,16 @@ get '/' do
       #{failures.values.first.backtrace}
       #{failures.values.count}
       #{results[:error]}
+    </div>" if params[:error_panel]
+
+    "<form>
+    <input type='hidden' name='koan' value='#{current_koan_name}'/>
+    <div nowrap='nowrap' style='#{'width: 70%; ' if error_panel}white-space: nowrap; position: absolute; margin-top: 0px; font-family: monospace;'>
+       <input type='submit' value='Click to submit Meditation or press Enter while in the form.'/>
+       #{inputs}
     </div>
-    </form>
-    <pre style='position:absolute;top:500px'>
-    </pre>
-    "
-    page
+    #{error_panel}
+    </form>"
   else
     if KOAN_FILENAMES.last == current_koan_name
       "THE END"
