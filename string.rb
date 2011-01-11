@@ -31,7 +31,7 @@ class String
         method_name = (methodx = line.match(/test_\S*/)) && methodx[0]
 # fail_message(failures, method_count - passes - 1)
         failure = failures[method_name.to_sym]
-        "#{failure.message if failure}
+        "#{fail_message(failure)}
         <div nowrap='nowrap' style='background-color:#{failure ? 'red' : 'green'}'>
         #{line}"
       elsif line.start_with?("&nbsp;&nbsp;end") && method_area
@@ -48,16 +48,14 @@ class String
       end
     end.join('<br/>')
   end
-  def fail_message(failures, fail_index)
-    if fail_index >= 0
-      fail_message = failures[fail_index] || ''
-      if fail_message.include? "FILL ME IN"
-        "  Please meditate on the following." 
-      else
-        "  The answers which you seek:\n  #{fail_message}"
-      end
+  def fail_message(failure)
+    return nil if failure.nil?
+    if failure.message.include? "FILL ME IN"
+      "  Please meditate on the following.".preify
+    elsif failure.message.include? "undefined local"
+      failure.message.split("for #<").first.preify  
     else
-     ''
-    end.preify
+      "  The answers which you seek:\n  #{failure.message.gsub("\n"," ")}".preify
+    end
   end
 end
