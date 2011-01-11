@@ -10,7 +10,7 @@ EDGECASE_OVERRIDES = IO.read("overrides.rb")
 ARRAY_ORIGINAL     = IO.read("koans/about_arrays.rb").remove_require_lines
 
 def input
-  params[:input] || []
+  (params[:input] || []).map{|i| i.gsub('raise','')}
 end
 def current_koan_name
   claimed = params[:koan].to_s
