@@ -3,7 +3,7 @@ class String
     self.split("\n").reject{|line| line.start_with? 'require' }.join("\n")
   end
   def preify
-    self.gsub("\n","<br/>").gsub("\s","&nbsp;")
+    self.gsub('<','&lt;').gsub('>','&gt;').gsub("\n","<br/>").gsub("\s","&nbsp;")
   end
   def swap_user_values(input_values)
     count = 0
@@ -28,8 +28,11 @@ class String
       if line.start_with? "&nbsp;&nbsp;def&nbsp;test_"
         method_area = true
         method_count = method_count + 1
-        "#{fail_message(failures, method_count - passes - 1)}
-        <div nowrap='nowrap' style='background-color:#{method_count <= passes ? 'green' : 'red'}'>
+        method_name = (methodx = line.match(/test_\S*/)) && methodx[0]
+# fail_message(failures, method_count - passes - 1)
+        failure = failures[method_name.to_sym]
+        "#{failure.message if failure}
+        <div nowrap='nowrap' style='background-color:#{failure ? 'red' : 'green'}'>
         #{line}"
       elsif line.start_with?("&nbsp;&nbsp;end") && method_area
         method_area = false
@@ -46,14 +49,15 @@ class String
     end.join('<br/>')
   end
   def fail_message(failures, fail_index)
-    fail_message = ''
     if fail_index >= 0
       fail_message = failures[fail_index] || ''
       if fail_message.include? "FILL ME IN"
-        fail_message = "&nbsp;&nbsp;Please meditate on the following." 
+        "  Please meditate on the following." 
       else
-        fail_message = "&nbsp;&nbsp;The answers which you seek:<br/>&nbsp;&nbsp;#{fail_message}"
+        "  The answers which you seek:\n  #{fail_message}"
       end
-    end
+    else
+     ''
+    end.preify
   end
 end

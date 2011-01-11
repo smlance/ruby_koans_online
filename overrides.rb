@@ -49,18 +49,18 @@ module EdgeCase
         end
       else
         # @failed_test = step
-        failures << step.failure
+        failures[step.name] = step.failure
         # add_progress(@pass_count)
         # @observations << Color.red("#{step.koan_file}##{step.name} has damaged your karma.")
         # throw :edgecase_exit
       end
     end
     def guide_through_error
-      puts "The answers you seek..."
-      puts Color.red(indent(failure.message).join)
+      # puts "The answers you seek..."
+      # puts Color.red(indent(failure.message).join)
     end
     def failures
-      @failures ||= []
+      @failures ||= {}
     end
 
     def embolden_first_line_only(text)

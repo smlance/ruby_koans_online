@@ -1,6 +1,7 @@
 require 'rubygems'
 require 'sinatra'
 require 'timeout'
+require 'pp'
 require File.expand_path(File.dirname(__FILE__) + '/string')
 require File.expand_path(File.dirname(__FILE__) + '/path_grabber')
 KOAN_FILENAMES     = PathGrabber.new.koan_filenames
@@ -37,7 +38,9 @@ get '/' do
   runnable_code = "
   require 'timeout'
   require 'test/unit/assertions'
-  RESULTS = {:error => '', :failures => [], :pass_count => 0}
+  Test::Unit::Assertions::AssertionMessage.use_pp= false
+
+  RESULTS = {:error => '', :failures => {}, :pass_count => 0}
   $SAFE = 3
     begin
       Timeout.timeout(2) {
@@ -70,7 +73,7 @@ get '/' do
   if failures.count > 0
     inputs = current_koan.
       gsub("\s", "&nbsp;").
-      swap_input_fields(input, pass_count, failures.map{|f| "#{f.message} #{f.backtrace} #{f.inspect}"})
+      swap_input_fields(input, pass_count, failures)
 
     page = "<form>
     <input type='hidden' name='koan' value='#{current_koan_name}'/>
@@ -81,8 +84,9 @@ get '/' do
       <input type='submit' value='Meditate'/><br/>
       Results
       #{pass_count}<br/>
-      #{failures.join('<br/>')}
-      #{failures.count}
+      #{failures.values.join("\n").preify}
+      #{failures.values.first.backtrace}
+      #{failures.values.count}
       #{results[:error]}
     </div>
     </form>
