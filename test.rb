@@ -10,7 +10,7 @@ EDGECASE_OVERRIDES = IO.read("overrides.rb")
 ARRAY_ORIGINAL     = IO.read("koans/about_arrays.rb").remove_require_lines
 
 def input
-  (params[:input] || []).map{|i| i.gsub('raise','')}
+  (params[:input] ||= []).map{|i| i.gsub('raise','')}
 end
 def current_koan_name
   claimed = params[:koan].to_s
@@ -66,6 +66,7 @@ get '/' do
     end
     RESULTS
   "
+  return "<pre>#{runnable_code}</pre>" if params[:dump]
   results = Thread.new { eval runnable_code, TOPLEVEL_BINDING }.value
 
   pass_count = results[:pass_count]
