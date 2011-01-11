@@ -2,6 +2,8 @@ require 'rubygems'
 require 'sinatra'
 require 'timeout'
 require File.expand_path(File.dirname(__FILE__) + '/string')
+require File.expand_path(File.dirname(__FILE__) + '/path_grabber')
+KOAN_FILENAMES     = PathGrabber.new.koan_filenames
 EDGECASE_CODE      = IO.read("koans/edgecase.rb").remove_require_lines.split(/END\s?\{/).first
 EDGECASE_OVERRIDES = IO.read("overrides.rb")
 ARRAY_ORIGINAL     = IO.read("koans/about_arrays.rb").remove_require_lines
@@ -9,15 +11,28 @@ ARRAY_ORIGINAL     = IO.read("koans/about_arrays.rb").remove_require_lines
 def input
   params[:input] || []
 end
+def current_koan_name
+  claimed = params[:koan].to_s
+  if KOAN_FILENAMES.include? claimed
+    claimed
+  else
+    KOAN_FILENAMES.first
+  end
+end
+def next_koan_name
+  KOAN_FILENAMES[current_koan_count]
+end
+def current_koan_count
+  KOAN_FILENAMES.index(current_koan_name)+1
+end
+def current_koan
+  IO.read("koans/#{current_koan_name}.rb").remove_require_lines.gsub("assert false", "assert __")
+end
 
 get '/' do
   count = 0
 
-  runnable_code = ARRAY_ORIGINAL.gsub(/__/) do |match|
-    x = input[count].to_s == "" ? "__" : " #{input[count]}"
-    count = count + 1
-    x
-  end
+  runnable_code = current_koan.swap_user_values(input)
   unique_id = rand(10000)
   runnable_code = "
   require 'timeout'
@@ -52,26 +67,38 @@ get '/' do
 
   pass_count = results[:pass_count]
   failures = results[:failures]
-  inputs = ARRAY_ORIGINAL.
-    gsub("\s", "&nbsp;").
-    swap_input_fields(input, pass_count, failures.map{|f| "#{f.message} #{f.backtrace} #{f.inspect}"})
+  if failures.count > 0
+    inputs = current_koan.
+      gsub("\s", "&nbsp;").
+      swap_input_fields(input, pass_count, failures.map{|f| "#{f.message} #{f.backtrace} #{f.inspect}"})
 
-  page = "<form>
-  <div style='position: absolute; height: 100%; width: 60%; overflow: auto;'>
-     #{inputs}
-  </div>
-  <div style='position: absolute; right: 0px; width: 38%;'>
-    <input type='submit' value='Meditate'/><br/>
-    Results
-    #{pass_count}<br/>
-    #{failures.join('<br/>')}
-    #{failures.count}
-    #{results[:error]}
-  </div>
-  </form>
-  <pre style='position:absolute;top:500px'>
-  </pre>
-  "
-  page
+    page = "<form>
+    <input type='hidden' name='koan' value='#{current_koan_name}'/>
+    <div nowrap='nowrap' style='white-space: nowrap; position: absolute; height: 100%; width: 60%; overflow: auto; font-family: monospace;'>
+       #{inputs}
+    </div>
+    <div style='position: absolute; right: 0px; width: 38%;'>
+      <input type='submit' value='Meditate'/><br/>
+      Results
+      #{pass_count}<br/>
+      #{failures.join('<br/>')}
+      #{failures.count}
+      #{results[:error]}
+    </div>
+    </form>
+    <pre style='position:absolute;top:500px'>
+    </pre>
+    "
+    page
+  else
+    if KOAN_FILENAMES.last == current_koan_name
+      "THE END"
+    else
+      "#{current_koan_name} has heightened your awareness.<br/>
+       #{current_koan_count}/#{KOAN_FILENAMES.count} complete<br/>
+        <form>
+        <input type='hidden' name='koan' value='#{next_koan_name}'/>
+        <input type='submit' value='Meditate on #{next_koan_name}'/></form>"
+    end
+  end
 end
-
