@@ -40,7 +40,7 @@ get '/' do
   require 'test/unit/assertions'
   Test::Unit::Assertions::AssertionMessage.use_pp= false
 
-  RESULTS = {:error => '', :failures => {}, :pass_count => 0}
+  RESULTS = {:error => nil, :failures => {}, :pass_count => 0}
   $SAFE = 3
     begin
       Timeout.timeout(2) {
@@ -58,7 +58,7 @@ get '/' do
         KoanArena.send(:remove_const, :UniqueRun#{unique_id})
       }
     rescue SecurityError => se
-      RESULTS[:error] = \"What do you think you're doing, Dave? \" + se.message + se.backtrace.join('<br/>')
+      RESULTS[:error] = \"What do you think you're doing, Dave? \"
     rescue TimeoutError => te
       RESULTS[:error] = 'Do you have an infinite loop?'
     rescue StandardError => e
@@ -71,7 +71,9 @@ get '/' do
 
   pass_count = results[:pass_count]
   failures = results[:failures]
-  if failures.count > 0
+  if results[:error]
+    return "#{results[:error]} <br/><br/> Click your browser back button to return."
+  elsif failures.count > 0
     inputs = current_koan.
       gsub("\s", "&nbsp;").
       swap_input_fields(input, pass_count, failures)
