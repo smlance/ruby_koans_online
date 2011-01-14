@@ -1,5 +1,6 @@
 require 'rubygems'
 require 'sinatra'
+require 'haml'
 require 'timeout'
 require 'pp'
 require File.expand_path(File.dirname(__FILE__) + '/string')
@@ -30,81 +31,63 @@ def current_koan
   IO.read("koans/#{current_koan_name}.rb").remove_require_lines.gsub("assert false", "assert __")
 end
 
-get '/' do
-  count = 0
+def runnable_code
+  code = current_koan.swap_user_values(input)
+  unique_id = rand(1000)
+  <<-RUNNABLE_CODE
+    require 'timeout'
+    require 'test/unit/assertions'
+    Test::Unit::Assertions::AssertionMessage.use_pp= false
 
-  runnable_code = current_koan.swap_user_values(input)
-  unique_id = rand(10000)
-  runnable_code = "
-  require 'timeout'
-  require 'test/unit/assertions'
-  Test::Unit::Assertions::AssertionMessage.use_pp= false
-
-  RESULTS = {:error => nil, :failures => {}, :pass_count => 0}
-  $SAFE = 3
-    begin
-      Timeout.timeout(2) {
-        module KoanArena
-          module UniqueRun#{unique_id}
-            #{::EDGECASE_CODE}
-            #{::EDGECASE_OVERRIDES}
-            #{runnable_code}
-            path = EdgeCase::ThePath.new
-            path.online_walk
-            RESULTS[:pass_count] = path.sensei.pass_count
-            RESULTS[:failures] = path.sensei.failures
+    RESULTS = {:error => nil, :failures => {}, :pass_count => 0}
+    $SAFE = 3
+      begin
+        Timeout.timeout(2) {
+          module KoanArena
+            module UniqueRun#{unique_id}
+              #{::EDGECASE_CODE}
+              #{::EDGECASE_OVERRIDES}
+              #{code}
+              path = EdgeCase::ThePath.new
+              path.online_walk
+              RESULTS[:pass_count] = path.sensei.pass_count
+              RESULTS[:failures] = path.sensei.failures
+            end
           end
-        end
-        KoanArena.send(:remove_const, :UniqueRun#{unique_id})
-      }
-    rescue SecurityError => se
-      RESULTS[:error] = \"What do you think you're doing, Dave? \"
-    rescue TimeoutError => te
-      RESULTS[:error] = 'Do you have an infinite loop?'
-    rescue StandardError => e
-      RESULTS[:error] = ['standarderror', e.message, e.backtrace, e.inspect].flatten.join('<br/>')
-    end
-    RESULTS
-  "
-  return "<pre>#{runnable_code}</pre>" if params[:dump]
+          KoanArena.send(:remove_const, :UniqueRun#{unique_id})
+        }
+      rescue SecurityError => se
+        RESULTS[:error] = \"What do you think you're doing, Dave? \"
+      rescue TimeoutError => te
+        RESULTS[:error] = 'Do you have an infinite loop?'
+      rescue StandardError => e
+        RESULTS[:error] = ['standarderror', e.message, e.backtrace, e.inspect].flatten.join('<br/>')
+      end
+      RESULTS
+  RUNNABLE_CODE
+end
+
+get '/' do
+  return haml '%pre= runnable_code' if params[:dump]
+
+  count = 0
   results = Thread.new { eval runnable_code, TOPLEVEL_BINDING }.value
+  @pass_count = results[:pass_count]
+  @failures   = results[:failures]
+  @error      = results[:error]
 
-  pass_count = results[:pass_count]
-  failures = results[:failures]
-  if results[:error]
-    return "#{results[:error]} <br/><br/> Click your browser back button to return."
-  elsif failures.count > 0
-    inputs = current_koan.
-      gsub("\s", "&nbsp;").
-      swap_input_fields(input, pass_count, failures)
-
-    error_panel = "<div style='position: absolute; right: 0px; width: 38%;'>
-      <input type='submit' value='Meditate'/><br/>
-      Results
-      #{pass_count}<br/>
-      #{failures.values.join("\n").preify}
-      #{failures.values.first.backtrace}
-      #{failures.values.count}
-      #{results[:error]}
-    </div>" if params[:error_panel]
-
-    "<form>
-    <input type='hidden' name='koan' value='#{current_koan_name}'/>
-    <div nowrap='nowrap' style='#{'width: 70%; ' if error_panel}white-space: nowrap; position: absolute; margin-top: 0px; font-family: monospace;'>
-       <input type='submit' value='Click to submit Meditation or press Enter while in the form.'/>
-       #{inputs}
-    </div>
-    #{error_panel}
-    </form>"
+  if @error
+    return "#{@error} <br/><br/> Click your browser back button to return."
+  elsif @failures.count > 0
+    @inputs = current_koan.gsub("\s", "&nbsp;").swap_input_fields(input, @pass_count, @failures)
+    return haml :koans
   else
     if KOAN_FILENAMES.last == current_koan_name
-      "THE END"
+      return haml :end
     else
-      "#{current_koan_name} has heightened your awareness.<br/>
-       #{current_koan_count}/#{KOAN_FILENAMES.count} complete<br/>
-        <form>
-        <input type='hidden' name='koan' value='#{next_koan_name}'/>
-        <input type='submit' value='Meditate on #{next_koan_name}'/></form>"
+      return haml :next_koan
     end
   end
+
+  # haml :test
 end

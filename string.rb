@@ -21,7 +21,7 @@ class String
         in_correct_ruby_v = in_ruby_v.include? "1.8"
         next
       elsif in_ruby_v
-        if line.match(/^\s{#{in_ruby_indentation}}end/) 
+        if line.match(/^\s{#{in_ruby_indentation}}end/)
           in_ruby_v = nil
           in_ruby_indentation = 0
           in_correct_ruby_v = true
@@ -70,10 +70,10 @@ class String
       if match = true_line.match(/^(\s{2}*)in_ruby_version.*[\"\'](.*)[\"\']/)
         in_ruby_indentation = match[1].size
         in_ruby_v = match[2]
-        in_correct_ruby_v = in_ruby_v.include? "1.8" 
+        in_correct_ruby_v = in_ruby_v.include? "1.8"
         next
       elsif in_ruby_v
-        if true_line.match(/^\s{#{in_ruby_indentation}}end/) 
+        if true_line.match(/^\s{#{in_ruby_indentation}}end/)
           in_ruby_v = nil
           in_ruby_indentation = 0
           in_correct_ruby_v = true
@@ -91,7 +91,7 @@ class String
         method_name = (methodx = true_line.match(/test_\S*/)) && methodx[0]
         failure = failures[method_name.to_sym]
         "#{fail_message(failure)}
-        <div nowrap='nowrap' style='background-color:#{failure ? '#FF9999' : '#CCFFCC'}'>
+        <div nowrap='nowrap' class='#{failure ? 'failed' : 'passed'}'>
         #{line}"
       elsif method_area && true_line.match(/^\s{#{method_indentation}}end/)
         method_area = false
@@ -106,7 +106,7 @@ class String
           else
             x = input_values[count].to_s.gsub("'", "&apos;")
           end
-          
+
           count = count + 1
           "<input type='text' name='input[]' value='#{x}\' />"
         end
@@ -118,7 +118,7 @@ class String
     if failure.message.include? "FILL ME IN"
       "  Please meditate on the following.".preify
     elsif failure.message.include? "undefined local"
-      failure.message.split("for #<").first.preify  
+      failure.message.split("for #<").first.preify
     else
       "  The answers which you seek:\n  #{failure.message.gsub("\n"," ")}".preify
     end

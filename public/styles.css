@@ -1,0 +1,27 @@
+body{
+  background-color: #fff;
+  width: 960px;
+  margin: 0 auto;
+}
+
+.meditate{
+  white-space: nowrap; position: absolute; margin-top: 0px; font-family: monospace;
+}
+
+.error_panel{
+  position: absolute; right: 0px; width: 38%;
+}
+
+.koans .failed, .koans .passed{
+  padding: 0.2em 0;
+}
+
+.koans .failed{
+  background-color: #FF9999;
+  border: 1px solid #E70800;
+}
+
+.koans .passed{
+  background-color: #CCFFCC;
+  border: 1px solid #00700F;
+}

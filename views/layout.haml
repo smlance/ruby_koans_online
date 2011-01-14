@@ -1,0 +1,9 @@
+!!! 5
+%html
+  %head
+    %title Ruby Koans Online
+    %link{:href => '/styles.css', :media => 'screen', :type => 'text/css', :rel => 'stylesheet'}
+  %body
+    %h1 Ruby Koans
+    %h2= current_koan_name
+    = yield
