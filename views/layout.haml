@@ -4,6 +4,10 @@
     %title Ruby Koans Online
     %link{:href => '/styles.css', :media => 'screen', :type => 'text/css', :rel => 'stylesheet'}
   %body
-    %h1 Ruby Koans
+    #top_line
+    %h1
+      Learn Ruby
+      %span With the Edgecase Ruby Koans <i>Online</i>
+
     %h2= current_koan_name
     = yield
