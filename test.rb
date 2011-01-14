@@ -88,6 +88,4 @@ get '/' do
       return haml :next_koan
     end
   end
-
-  # haml :test
 end
