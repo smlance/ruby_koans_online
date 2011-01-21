@@ -79,7 +79,7 @@ get '/' do
   if @error
     return "#{@error} <br/><br/> Click your browser back button to return."
   elsif @failures.count > 0
-    @inputs = current_koan.gsub("\s", "&nbsp;").swap_input_fields(input, @pass_count, @failures)
+    @inputs = current_koan.gsub("\s", "&nbsp;").gsub("<<","&lt;&lt;").swap_input_fields(input, @pass_count, @failures)
     return haml :koans
   else
     if KOAN_FILENAMES.last == current_koan_name
