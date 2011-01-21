@@ -10,6 +10,11 @@ EDGECASE_CODE      = IO.read("koans/edgecase.rb").remove_require_lines.split(/EN
 EDGECASE_OVERRIDES = IO.read("overrides.rb")
 ARRAY_ORIGINAL     = IO.read("koans/about_arrays.rb").remove_require_lines
 
+require 'drb/drb'
+SANDBOX_URI = 'druby://localhost:8787'
+
+runner = DRbObject.new(nil, SANDBOX_URI)
+
 def input
   (params[:input] ||= []).map{|i| i.gsub('raise','')}
 end
@@ -71,7 +76,8 @@ get '/' do
   return haml '%pre= runnable_code' if params[:dump]
 
   count = 0
-  results = Thread.new { eval runnable_code, TOPLEVEL_BINDING }.value
+  results = runner.run(runnable_code).buf
+  # results = Thread.new { eval runnable_code, TOPLEVEL_BINDING }.value
   @pass_count = results[:pass_count]
   @failures   = results[:failures]
   @error      = results[:error]
