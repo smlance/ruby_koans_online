@@ -2,9 +2,11 @@ class String
   def remove_require_lines
     self.split("\n").reject{|line| line.start_with? 'require' }.join("\n")
   end
+
   def preify
     self.gsub('<','&lt;').gsub('>','&gt;').gsub("\n","<br/>").gsub("\s","&nbsp;")
   end
+
   def swap_user_values(input_values)
     count = 0
     method_area = false
@@ -55,6 +57,7 @@ class String
       end
     end.compact.join("\n")
   end
+
   def swap_input_fields(input_values, passes, failures)
     count        = 0
     method_count = 0
@@ -113,6 +116,7 @@ class String
       end
     end.compact.join('<br/>')
   end
+
   def fail_message(failure)
     return nil if failure.nil?
     if failure.message.include? "FILL ME IN"
