@@ -5,7 +5,7 @@
 # Support code for the Ruby Koans.
 # --------------------------------------------------------------------
 
-class FillMeInError < StandardError
+class ::FillMeInError < StandardError
 end
 
 class ::Object

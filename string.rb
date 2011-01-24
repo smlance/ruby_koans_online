@@ -43,12 +43,12 @@ class String
       if line.strip.start_with? "#"
         line
       else
-        line.gsub(/__/) do |match|
+        line.gsub(/___?/) do |match|
           if %w{test_assert_truth test_assert_with_message}.include?(method_name) &&
               (input_values[count].nil? || input_values[count].empty?)
             input_values[count] = 'false'
           end
-          x = input_values[count].to_s == "" ? "__" : "#{input_values[count]}"
+          x = input_values[count].to_s == "" ? match : "#{input_values[count]}"
           count = count + 1
           x
         end
@@ -99,7 +99,7 @@ class String
       elsif line.gsub("&nbsp;","").start_with?("#")
         line
       else
-        line.gsub(/__/) do |match|
+        line.gsub(/___?/) do |match|
           if %w{test_assert_truth test_assert_with_message}.include?(method_name) &&
               (input_values[count].nil? || input_values[count].empty?)
             x = 'false'
