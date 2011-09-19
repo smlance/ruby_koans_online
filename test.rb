@@ -33,6 +33,7 @@ end
 
 def runnable_code
   code = current_koan.swap_user_values(input)
+  global_code = code.split('class').first
   unique_id = rand(1000)
   <<-RUNNABLE_CODE
     require 'timeout'
@@ -43,6 +44,7 @@ def runnable_code
     $SAFE = 3
       begin
         Timeout.timeout(2) {
+          #{global_code}
           module KoanArena
             module UniqueRun#{unique_id}
               #{::EDGECASE_CODE}
