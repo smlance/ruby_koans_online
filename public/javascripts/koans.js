@@ -1,6 +1,7 @@
 $(function () {
   var firstFail = $(".failed:first"),
-      top       = firstFail.offset().top;
+      offset    = firstFail.offset(),
+      top       = offset ? offset.top : 0;
 
   firstFail.find("input:first").focus();
   $("html,body").animate({scrollTop: top - 280}, 0);

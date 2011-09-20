@@ -45,7 +45,7 @@ class String
       if line.strip.start_with? "#"
         line
       else
-        line.gsub(/___?/) do |match|
+        line.gsub('__send__', '**send**').gsub(/___*/) do |match|
           if %w{test_assert_truth test_assert_with_message}.include?(method_name) &&
               (input_values[count].nil? || input_values[count].empty?)
             input_values[count] = 'false'
@@ -53,7 +53,7 @@ class String
           x = input_values[count].to_s == "" ? match : "#{input_values[count]}"
           count = count + 1
           x
-        end
+        end.gsub('**send**', '__send__')
       end
     end.compact.join("\n")
   end
@@ -102,7 +102,7 @@ class String
       elsif line.gsub("&nbsp;","").start_with?("#")
         line
       else
-        line.gsub(/___?/) do |match|
+        line.gsub(/__send__/, '**send**').gsub(/___*/) do |match|
           if %w{test_assert_truth test_assert_with_message}.include?(method_name) &&
               (input_values[count].nil? || input_values[count].empty?)
             x = 'false'
@@ -112,7 +112,7 @@ class String
 
           count = count + 1
           "<input type='text' name='input[]' value='#{x}\' />"
-        end
+        end.gsub('**send**', '__send__')
       end
     end.compact.join('<br/>')
   end
