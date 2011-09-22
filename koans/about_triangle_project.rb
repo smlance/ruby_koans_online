@@ -1,7 +1,8 @@
 require File.expand_path(File.dirname(__FILE__) + '/edgecase')
 
-# You need to write the triangle method in the file 'triangle.rb'
-require 'triangle.rb'
+_triangle.rb_
+# You need to write the triangle method
+_triangle.rb_
 
 class AboutTriangleProject < EdgeCase::Koan
   def test_equilateral_triangles_have_equal_sides

@@ -30,7 +30,9 @@ require File.expand_path(File.dirname(__FILE__) + '/edgecase')
 # Your goal is to write the score method.
 
 def score(dice)
-  # You need to write this method
+  _score.rb_
+# You need to write this method
+  _score.rb_
 end
 
 class AboutScoringProject < EdgeCase::Koan

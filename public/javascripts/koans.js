@@ -5,4 +5,8 @@ $(function () {
 
   firstFail.find("input:first").focus();
   $("html,body").animate({scrollTop: top - 280}, 0);
+
+  if($('#rotateTeam').length > 0){
+    $('#rotateTeam').cycle({ fx: 'shuffle' });
+  }
 });

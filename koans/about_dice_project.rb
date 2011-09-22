@@ -1,10 +1,12 @@
 require File.expand_path(File.dirname(__FILE__) + '/edgecase')
 
+_score.rb_
 # Implement a DiceSet Class here:
-#
+
 # class DiceSet
-#   code ...
+#  code ...
 # end
+_score.rb_
 
 class AboutDiceProject < EdgeCase::Koan
   def test_can_create_a_dice_set

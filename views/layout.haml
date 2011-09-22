@@ -4,6 +4,8 @@
     %title Ruby Koans Online
     %link{:href => '/styles.css', :media => 'screen', :type => 'text/css', :rel => 'stylesheet'}
     %script{:src => '/javascripts/jquery-1.4.4.min.js'}
+    - if @end
+      %script{:src => "http://cloud.github.com/downloads/malsup/cycle/jquery.cycle.all.latest.js"}
     %script{:src => '/javascripts/koans.js'}
     :javascript
       var _gaq = [];
@@ -19,6 +21,7 @@
 
   %body
     #top_line
+    %img#swoosh{:src => '/images/enso.gif'}
     %h1
       Learn Ruby
       %span With the Edgecase Ruby Koans <i>Online</i>

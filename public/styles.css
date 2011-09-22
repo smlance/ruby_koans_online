@@ -4,7 +4,6 @@ body{
   width: 960px;
   margin: 0 auto;
   font-size: 100%;
-  background: url(/images/enso.gif) no-repeat 91% 0;
 }
 
 #top_line {
@@ -72,4 +71,22 @@ h1 span {
   padding: 0.2em;
   background-color: rgba(255,255,255, 0.6);
   border-bottom: 1px solid rgba(255,255,255 , 0.8);
+}
+
+#rotateTeam {
+  position: absolute;
+  right: 213px;
+  top: 159px;
+}
+#teamLabel {
+  position: absolute;
+  right: 228px;
+  top: 290px;
+}
+
+#swoosh {
+  position: absolute;
+  right: 50px;
+  top: 0px;
+  z-index: -999;
 }

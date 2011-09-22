@@ -80,7 +80,10 @@ class AboutSandwichCode < EdgeCase::Koan
   # ------------------------------------------------------------------
 
   def find_line2(file_name)
-    # Rewrite find_line using the file_sandwich library function.
+    _find_line2.rb_
+# This should be like find_line but use the file_sandwich library function above.
+# See count_lines2 above as an example of how to use file_sandwich.
+    _find_line2.rb_
   end
 
   def test_finding_lines2

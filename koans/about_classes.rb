@@ -32,11 +32,6 @@ class AboutClasses < EdgeCase::Koan
     assert_raise(___) do
       fido.name
     end
-
-    assert_raise(___) do
-      eval "fido.@name"
-      # NOTE: Using eval because the above line is a syntax error.
-    end
   end
 
   def test_you_can_politely_ask_for_instance_variable_values
@@ -44,14 +39,6 @@ class AboutClasses < EdgeCase::Koan
     fido.set_name("Fido")
 
     assert_equal __, fido.instance_variable_get("@name")
-  end
-
-  def test_you_can_rip_the_value_out_using_instance_eval
-    fido = Dog2.new
-    fido.set_name("Fido")
-
-    assert_equal __, fido.instance_eval("@name")  # string version
-    assert_equal __, fido.instance_eval { @name } # block version
   end
 
   # ------------------------------------------------------------------
