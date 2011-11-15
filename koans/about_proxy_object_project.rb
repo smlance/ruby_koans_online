@@ -12,6 +12,7 @@ require File.expand_path(File.dirname(__FILE__) + '/edgecase')
 # missing handler and any other supporting methods.  The specification
 # of the Proxy class is given in the AboutProxyObjectProject koan.
 
+_proxy.rb_
 class Proxy
   def initialize(target_object)
     @object = target_object
@@ -20,6 +21,7 @@ class Proxy
 
   # WRITE CODE HERE
 end
+_proxy.rb_
 
 # The proxy object should pass the following Koan:
 #

@@ -1,6 +1,6 @@
 require 'cgi'
 class String
-  TEXT_AREA_MATCHER = /_[\w_]+?\.rb_\n([\w\s\#\:\.]+?\n)\s*_[\w_]+?\.rb_/
+  TEXT_AREA_MATCHER = /_[\w_]+?\.rb_\n([\w\s\#\:\.\(\)\@\,\=]+?\n)\s*_[\w_]+?\.rb_/
   FILL_ME_IN = /_(?:textarea)?(?:n)?__*/
   def remove_require_lines
     self.split("\n").reject{|line| line.start_with? 'require' }.join("\n")
@@ -22,8 +22,8 @@ class String
     session_code_match_name = ''
 
     self.gsub(TEXT_AREA_MATCHER) do |match|
-      session_code_match_name = CGI.unescape((match.match(/_[\w_]+?\.rb_/)||[])[0])
       default_textarea_contents = $1
+      session_code_match_name = CGI.unescape((match.match(/_[\w_]+?\.rb_/)||[])[0])
       "_textarea_"
     end.split("\n").map do |line|
       if match = line.match(/^(\s{2}*)in_ruby_version.*[\"\'](.*)[\"\']/)

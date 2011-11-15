@@ -3,6 +3,7 @@ var assert = require('assert'),
     zombie = require('zombie');
 
 var triangleSolved = 'class TriangleError < StandardError;end; def triangle a, b, c; a,b,c = [a,b,c].sort; raise TriangleError if [a,b,c].any?{|side| side <= 0} || a+b <= c; [nil, :equilateral, :isosceles, :scalene][[a,b,c].uniq.count]; end;';
+var proxySolved = 'class Proxy;   def initialize(target_object);     @object = target_object;     @messages = {}; @messes = [];  end;   def method_missing(method_name, *args);     @messes << method_name; @messages[method_name] ||= 0;     @messages[method_name] += 1;     @object.send(method_name, *args);   end;   def called?(m);     @messes.include? m;   end;   def number_of_times_called(m);     @messages[m] || 0;   end;   def messages; @messes;end; end';
 
 var koansWithAnswers = {
   "about_asserts": ["true", "true", "2", "2", "2"],
@@ -32,6 +33,7 @@ var koansWithAnswers = {
   "about_modules": ["NoMethodError", "\"WOOF\"", "\"Fido\"", "\"Rover\"", ":in_object"],
   "about_scope": ["NameError", ":jims_dog", ":joes_dog", "true", "true", "true", "false", "true", "3.1416", "true", "true", "true", "true", "[\"Dog\"]", "0"],
   "about_message_passing": ["\"?\"", "downcase", "true", "true", "false", "[]", "[]", "[3, 4, nil, 6]", "[3, 4, nil, 6]", "NoMethodError", "NoMethodError", "\"Someone called foobar with <>\"", "\"Someone called foobaz with <1>\"", "\"Someone called sum with <1, 2, 3, 4, 5, 6>\"", "false", "\"Foo to you too\"", "\"Foo to you too\"", "NoMethodError", "true", "false"],
+  "about_proxy_object_project": [proxySolved],
   "about_to_str": ["\"non-string-like\"", "TypeError", "\"string-like\"", "false", "false", "true"],
 }
 var buildTestScripts = function(){

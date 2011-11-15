@@ -2,13 +2,13 @@ require 'rubygems'
 require 'sinatra'
 require 'haml'
 require 'timeout'
-require 'pp'
 require File.expand_path(File.dirname(__FILE__) + '/string')
 require File.expand_path(File.dirname(__FILE__) + '/path_grabber')
 KOAN_FILENAMES     = PathGrabber.new.koan_filenames
 EDGECASE_CODE      = IO.read("koans/edgecase.rb").remove_require_lines.split(/END\s?\{/).first
 EDGECASE_OVERRIDES = IO.read("overrides.rb")
 ARRAY_ORIGINAL     = IO.read("koans/about_arrays.rb").remove_require_lines
+CLASSES_ALLOWED    = %w(TriangleError Proxy DiceSet)
 
 class FakeFile
   CONTENT = "this\nis\na\ntest"
@@ -43,7 +43,18 @@ class FakeFile
 end
 
 def input
-  (params[:input] ||= [])
+  @input = (params[:input] ||= [])
+  @input.map do |x|
+    match_found = false
+    class_clean = x.scan(/class\s+(\w+)/).all?{|z| match_found = true; CLASSES_ALLOWED.include? z.first}
+    if class_clean
+      if match_found || (def_clean = x.scan(/def\s+(\w+)/).all?{|z| %w(triangle).include? z.first})
+        x
+      end
+    else
+      "# not safe :( Use your browser Back button to return"
+    end
+  end
 end
 def current_koan_name
   return '' if @end
@@ -77,11 +88,9 @@ def runnable_code(session={})
   code = current_koan.swap_user_values(input,session).gsub(" ::About", " About").gsub("File", "FakeFile").gsub(" open(", "FakeFile.gimme(")
   index = code.rindex(/class About\w*? \< EdgeCase::Koan/)
   global_code = code[0...index]
-  reset_global_classes = global_code.scan(/class (\w+)/).collect{|c| "Object.send(:remove_const, :#{c}) if defined? #{c};" }.join
-  global_code = "#{reset_global_classes}#{global_code}"
+  reset_global_classes = (global_code.scan(/class (\w+)/) + CLASSES_ALLOWED).collect{|c| "Object.send(:remove_const, :#{c}) if defined? #{c};" }.join
+  global_code = "#{reset_global_classes}begin; Object.send(:remove_method, :triangle);rescue;end#{global_code}"
   code = code[index..-1]
-  require 'pp'
-  pp global_code
   <<-RUNNABLE_CODE
     require 'timeout'
     require 'test/unit/assertions'
