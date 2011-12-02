@@ -10,7 +10,7 @@ class String
     self.gsub('<','&lt;').gsub('>','&gt;').gsub("\n","<br/>").gsub("\s","&nbsp;")
   end
 
-  def swap_user_values(input_values, session)
+  def swap_user_values(input_values, request, session)
     count = 0
     method_area = false
     method_name = nil
@@ -63,6 +63,7 @@ class String
           x = if input_values[count].to_s == ""
             if match.include?('textarea')
               if previously_entered = session[session_code_match_name.to_sym]
+                request[:used_previous_session_code] = true
                 previously_entered
               else
                 default_textarea_contents
@@ -84,6 +85,7 @@ class String
   end
 
   def swap_input_fields(input_values, passes, failures, session={})
+    failures   ||= {}
     count        = 0
     method_count = 0
     method_area  = false
@@ -125,7 +127,7 @@ class String
         method_name = (methodx = true_line.match(/test_\S*/)) && methodx[0]
         failure = failures[method_name.to_sym]
         "#{fail_message(failure)}
-        <div nowrap='nowrap' class='#{failure ? 'failed' : 'passed'}'>
+        <div nowrap='nowrap' class='#{(failure || failures[:epic_fail]) ? 'failed' : 'passed'}'>
         #{line}"
       elsif method_area && true_line.match(/^\s{#{method_indentation}}end/)
         method_area = false
