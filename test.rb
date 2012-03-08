@@ -37,8 +37,12 @@ class FakeFile
     name.to_str == 'example_file.txt'
   end
 
-  def self.open(*x)
-    CONTENT
+  def map(&block)
+    CONTENT.map(&block)
+  end
+
+  def inspect
+    "#<File:example_file.txt>"
   end
 end
 

@@ -72,13 +72,19 @@ class AboutIteration < EdgeCase::Koan
     # Describe in your own words what inject does.
   end
 
+  # example_file.txt contents:
+  #  this
+  #  is
+  #  a
+  #  test
+
   def test_all_iteration_methods_work_on_any_collection_not_just_arrays
     # Ranges act like a collection
     result = (1..3).map { |item| item + 10 }
     assert_equal __, result
 
     # Files act like a collection of lines
-    File.open("example_file.txt") do |file|
+    open("example_file.txt") do |file|
       upcase_lines = file.map { |line| line.strip.upcase }
       assert_equal __, upcase_lines
     end
@@ -89,13 +95,13 @@ class AboutIteration < EdgeCase::Koan
 
   # Bonus Question:  In the previous koan, we saw the construct:
   #
-  #   File.open(filename) do |file|
+  #   open(filename) do |file|
   #     # code to read 'file'
   #   end
   #
   # Why did we do it that way instead of the following?
   #
-  #   file = File.open(filename)
+  #   file = open(filename)
   #   # code to read 'file'
   #
   # When you get to the "AboutSandwichCode" koan, recheck your answer.

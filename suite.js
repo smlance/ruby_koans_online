@@ -24,9 +24,9 @@ var koansWithAnswers = {
   "about_triangle_project_2": [triangleSolved],
   "about_iteration": ["6", "6", "6", "[11, 12, 13]", "[11, 12, 13]", "[2, 4, 6]", "[2, 4, 6]", "\"Clarence\"", "9", "24", "[11, 12, 13]", "[\"THIS\", \"IS\", \"A\", \"TEST\"]"],
   "about_blocks": ["3", "3", "\"Jim\"", "[:peanut, :butter, :and, :jelly]", ":with_block", ":no_block", ":modified_in_a_block", "11", "11", "\"JIM\"", "20", "11"],
-  "about_sandwich_code": ["4", "\"test\\n\"", "4", "file_sandwich(file_name) do |file|;  while line = file.gets;    return line if line.match /e/;  end;end", "\"test\\n\"", "4"],
+  "about_sandwich_code": ["4", "\"test\\n\"", "4", "file_sandwich(file_name) do |file|;  while line = file.gets;    return line if line.match /e/;  end;end", "4"],
   "about_scoring_project": [ "(1..6).collect do |n|; score_for_number = 0; count = dice.select{|x| x==n }.count; extra = count % 3; score_for_number += (n==1)? 1000 : n*100 if count/3==1; score_for_number += extra*100 if n == 1; score_for_number += extra*50  if n == 5; score_for_number; end.inject(0){|n,t| n+t }"],
-  "about_classes": ["Dog", "[]", "[\"@name\"]", "NoMethodError", "\"Fido\"",  "\"Fido\"", "\"Fido\"", "\"Fido\"", "\"Fido\"", "ArgumentError", "true", "@name", "fido", "\"Fido\"", "\"My dog is Fido\"", "\"<Dog named 'Fido'>\"", "\"123\"", "\"[1, 2, 3]\"", "\"STRING\"", "'\"STRING\"'"],
+  "about_classes": ["Dog", "[]", "[\"@name\"]", "NoMethodError", "\"Fido\"",  "\"Fido\"", "\"Fido\"", "\"Fido\"", "\"Fido\"", "ArgumentError", "true", "@name", "fido", "\"My dog is Fido\"", "\"<Dog named 'Fido'>\"", "\"123\"", "\"[1, 2, 3]\"", "\"STRING\"", "'\"STRING\"'"],
   "about_open_classes": ["\"WOOF\"", "\"HAPPY\"", "\"WOOF\"", "false", "true"],
   "about_dice_project": [ "class DiceSet; def roll number; @number = number; @values = nil; end; def values; return @values unless @values.nil?; @values ||= []; @number.times{ @values.push(rand(6).to_i+1) }; @values; end; end; "],
   "about_inheritance": ["true", "true", "\"Chico\"", ":happy", "NoMethodError", "\"yip\"", "\"WOOF\"", "\"WOOF, GROWL\"", "NoMethodError"],
@@ -41,7 +41,7 @@ var buildTestScripts = function(){
   for (var koanName in koansWithAnswers) {
     if (koansWithAnswers.hasOwnProperty(koanName)) {
       var answers = koansWithAnswers[koanName];
-      var url = "http://localhost:4567/?koan="+koanName;
+      var url = "http://localhost:9292/?koan="+koanName;
       scripts['visits '+koanName] = {
         topic: function(url){ return function(){
           var zb = new zombie.Browser({debug: true})

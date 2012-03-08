@@ -146,7 +146,8 @@ class String
           count = count + 1
           if match.include? 'textarea'
             val = if x.to_s.empty?
-              session[session_code_match_name.to_sym] || default_textarea_contents
+              sess = session[session_code_match_name.to_sym]
+              (sess && sess != '__') ? sess : default_textarea_contents
             else
               x
             end

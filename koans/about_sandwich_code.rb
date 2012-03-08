@@ -1,5 +1,11 @@
 require File.expand_path(File.dirname(__FILE__) + '/edgecase')
 
+  # example_file.txt contents:
+  #  this
+  #  is
+  #  a
+  #  test
+
 class AboutSandwichCode < EdgeCase::Koan
 
   def count_lines(file_name)
@@ -80,14 +86,14 @@ class AboutSandwichCode < EdgeCase::Koan
   # ------------------------------------------------------------------
 
   def find_line2(file_name)
-    _find_line2.rb_
+_find_line2.rb_
 # This should be like find_line but use the file_sandwich library function above.
 # See count_lines2 above as an example of how to use file_sandwich.
-    _find_line2.rb_
+_find_line2.rb_
   end
 
   def test_finding_lines2
-    assert_equal __, find_line2("example_file.txt")
+    assert_equal "test\n", find_line2("example_file.txt")
   end
 
   # ------------------------------------------------------------------
