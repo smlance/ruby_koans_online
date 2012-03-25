@@ -1,6 +1,3 @@
-require 'rubygems'
-require 'sinatra'
-require 'haml'
 require 'timeout'
 require File.expand_path(File.dirname(__FILE__) + '/string')
 require File.expand_path(File.dirname(__FILE__) + '/path_grabber')
