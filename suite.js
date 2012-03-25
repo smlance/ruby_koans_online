@@ -41,7 +41,7 @@ var buildTestScripts = function(){
   for (var koanName in koansWithAnswers) {
     if (koansWithAnswers.hasOwnProperty(koanName)) {
       var answers = koansWithAnswers[koanName];
-      var url = "http://localhost:9292/?koan="+koanName;
+      var url = "http://localhost:9393/?koan="+koanName;
       scripts['visits '+koanName] = {
         topic: function(url){ return function(){
           var zb = new zombie.Browser({debug: true})
