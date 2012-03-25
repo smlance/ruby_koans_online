@@ -12,18 +12,26 @@ With the Ruby Koans Online, you can dip your big toe into a larger world no matt
 where you are or what you're doing. So what are you waiting for? Try the Ruby Koans
 Online now and take your first step into the wonderful world of Ruby.
 
-## Setting up the app locally
+## Development Setup
 
 ### Ruby Dependencies
 
-The koans currently run on ruby 1.8.7. Dependencies are handled by [bundler](http://gembulder.com). To install all the necessary gems, run `bundle install`.
+The koans currently run on ree 1.8.7. Ruby gem dependencies are handled by [bundler](http://gembulder.com). To install all the necessary gems, run `bundle install`.
 
 ### Node.js Dependencies
 
-The ruby koans online are tested using [zombie.js](http://zombie.labnotes.org/). To install all the necessary packages, run `npm install`.
+Dependecies are handled by [npm](http://npmjs.org/). Ruby Koans Online is tested using [zombie.js](http://zombie.labnotes.org/). To install all the necessary packages, run `npm install`.
 
 ### Development
 
 To start the development server, run `shotgun`. Shotgun is an automatic reloading version of the rackup command that's shipped with Rack. You can learn
 more about it [here](https://github.com/rtomayko/shotgun.git).
 
+#### Running the tests:
+
+1. Start the app using `shotgun`. Ensure it's running on port `9393` (the default).
+2. Run `node suite.js`.
+
+## Contributing
+
+Fork the project, make your fix, add some tests, and send a pull request!
