@@ -123,8 +123,7 @@ end
 
 enable :sessions
 
-get '/' do
-  return haml '%pre= runnable_code' if params[:dump]
+def run_koan
   count = 0
   begin
     results = {:failures => {}}
@@ -143,6 +142,21 @@ get '/' do
   @pass_count = results[:pass_count]
   @failures   = results[:failures]
   @failures[:epic_fail] = true if @error
+end
+
+def next_page
+  if KOAN_FILENAMES.last == current_koan_name
+    @end = true
+    :end
+  else
+    :next_koan
+  end
+end
+
+get '/:koan' do
+  return haml '%pre= runnable_code' if params[:dump]
+
+  run_koan
 
   if @error && !request[:used_previous_session_code]
     return "#{@error.gsub(/\n/, "<br/>")} <br/><br/> Click your browser back button to return."
@@ -150,11 +164,12 @@ get '/' do
     @inputs = current_koan.swap_input_fields(input, @pass_count, @failures, session)
     return haml :koans
   else
-    if KOAN_FILENAMES.last == current_koan_name
-      @end = true
-      return haml :end
-    else
-      return haml :next_koan
-    end
+    return haml next_page
   end
 end
+
+get '/' do
+  @hide_koan_name = true
+  haml :intro
+end
+

@@ -1,0 +1,69 @@
+%section#the_path
+  %h2 The Path to Enlightenment
+
+  %p
+    Each page consists of a number of tests that you have to complete, and any information you
+    might require to help you make those test pass.  You can run the tests by clicking the
+    Meditate button at any time or by pressing the Enter key when filling in any of the tests.
+
+
+  %h3 Red, Green, Refactor
+
+  %p
+    In test-driven development (TDD) the mantra has always been
+    %ol
+      %li
+        %span.red red
+        \: write a failing test and run it,
+      %li
+        %span.green green
+        \: write just enough code to make the test pass, and
+      %li
+        %span.refactor refactor
+        \: look at the code to see if you can make it any better.
+  %p
+    With the Ruby Koans Online,
+    %ol
+      %li
+        the tests will start in the failing state ( background is
+        %span.red red
+        ),
+      %li
+        type what you expect the result(s) to be in the input box(es) provided to make the test pass (
+        background becomes
+        %span.green green
+        ),
+      %li
+        then take a moment to reflect upon the test to see what it is teaching you and, if required,
+        improve the code to better communicate its intent (
+        %span.refactor refactor
+        ).
+
+
+  %h3 The happy path
+
+  %p
+    For example, type <i>true</i> in the input box below and then click the Meditate button or hit Enter
+    to turn the box green.
+
+  =haml :example
+
+
+  %h3 Straying from the path
+
+  %p
+    If the results were not what you expected, the Koans will guide you back to the enlightened path with a hint.
+  %p
+    Type <i>false</i> in the box below to see the hint displayed.
+
+  =haml :example
+
+  %p
+    <em>Please note</em>:
+    A common source of confusion when using the Ruby Koans comes from the fact that we ask you to fill
+    in the <em>expectation</em> and not the <em>actual</em>. Normally when you are practicing TDD you
+    will write a test with an expectation of how you want the code to behave and then write the actual
+    code to make that test pass. However, in the case of the Ruby Koans, the actual code has already been
+    written (in most koans). You are instead being asked what <em>your</em> expectation is (i.e. what you
+    expect to happen when the code in question is run).
+

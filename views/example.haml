@@ -1,0 +1,19 @@
+.example
+  %form
+    .meditate{:nowrap => 'nowrap'}
+      %input.button{:type => 'submit', :value => 'Meditate'}/
+      .koans
+        .info # True should be true.
+        .error
+          \#
+          %span.given &lt;false&gt;
+          expected but was &lt;true&gt;.
+        .koan.failed{:nowrap => "nowrap"}
+          &nbsp;&nbsp;def&nbsp;test_example
+          %br
+          &nbsp;&nbsp;&nbsp;&nbsp;assert_equal&nbsp;
+          %input.koanInput{:type => "text", :name => "input[]"}
+          ,&nbsp;true
+          %br
+          &nbsp;&nbsp;end
+

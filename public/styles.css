@@ -99,3 +99,10 @@ h1 span.with {
   top: 0px;
   z-index: -999;
 }
+
+.red, .green, .refactor { font-weight: bold }
+.red { color: red }
+.green { color: green }
+.refactor { color: blue }
+
+.error { display: none; }

@@ -1,5 +1,5 @@
-%form
-  %input{:type => 'hidden', :name => 'koan', :value => current_koan_name}/
+%h2= current_koan_name
+%form{:action => "/#{current_koan_name}"}
   .meditate{:nowrap => 'nowrap'}
     %input{:type => 'submit', :value => 'Click to submit Meditation or press Enter while in the form.'}/
     .koans
