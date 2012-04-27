@@ -3,7 +3,9 @@ $(function () {
       offset    = firstFail.offset(),
       top       = offset ? offset.top : 0;
 
-  firstFail.find("input:first").focus();
+  if($('.example form').length === 0){
+    firstFail.find("input:first").focus();
+  }
   $("html,body").animate({scrollTop: top - 280}, 0);
 
   if($('#rotateTeam').length > 0){
@@ -23,5 +25,5 @@ $(function () {
       error.show();
     }
     e.preventDefault();
-  })
+  });
 });

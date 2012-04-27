@@ -106,3 +106,9 @@ h1 span.with {
 .refactor { color: blue }
 
 .error { display: none; }
+.greenbox { border: 2px solid green;}
+.redbox { border: 2px solid red;}
+.greenbox, .redbox {
+  margin-top: 5px;
+  padding-top: -5px;
+}

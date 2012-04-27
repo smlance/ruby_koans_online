@@ -1,9 +1,14 @@
 %section#issues
   %h3 Known Issues
 
-  %p
-    Whilst the Ruby Koans themselves are production-ready, the Ruby Koans Online is a work in progress.
-    As such there may be the occasional issue. A list of the current known issues can be found below.
+  %ul
+    %li
+      In Chrome, hitting the browser back button from the Koans error page
+      will cause the browser to move some of your answers around.
+      Either don't use Chrome or refresh the page after hitting your
+      browser back button to get Chrome to put your answers in their
+      proper places.
+      %a{:href => 'https://github.com/edgecase/ruby_koans_online/issues/10#issuecomment-4678002', :target => '_blank'}Documented Issue
 
   %p
     If you encounter any other issues whilst using the Ruby Koans Online, please contact us using the
@@ -11,20 +16,4 @@
 
   %p
     Thanks, the Ruby Koans Online Team
-
-  %ul
-    %li
-      Some error messages could be friendlier
-    %li
-      When a test has multiple assertions and an answer is submitted,
-      unless all assertions have been completed the first input box
-      is always highlighted.
-    %li
-      On certain errors the wrong answer is being copied back into the
-      first input box on the page.
-    %li
-      textarea placeholder text is not placeholder text and therefore needs
-      to be deleted on focus
-    %li
-      sometimes seems to get stuck when certain errors occur
 

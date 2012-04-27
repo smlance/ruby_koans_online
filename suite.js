@@ -57,8 +57,8 @@ var buildTestScripts = function(){
               url = url + answerComponents;
               browser.visit(url, this.callback);
             } else {
-              var koanNameElement = browser.querySelector(":input[name=koan]");
-              assert.equal(koanNameElement.value, koanName);
+              var koanNameFromPage = browser.querySelector("h2").innerHTML;
+              assert.equal(koanNameFromPage, koanName);
               for(var i=0; i<answers.length; i++) {
                 browser.fill(".koanInput:eq("+(i)+")", answers[i]);
                 // browser.document.getElementsByClassName('koanInput').item(i).innerHTML = answers[i];

@@ -154,6 +154,16 @@ def next_page
 end
 
 get '/:koan' do
+  do_stuff
+end
+
+get '/' do
+  return do_stuff if params[:koan]
+  @hide_koan_name = true
+  haml :intro
+end
+
+def do_stuff
   return haml '%pre= runnable_code' if params[:dump]
 
   run_koan
@@ -167,9 +177,3 @@ get '/:koan' do
     return haml next_page
   end
 end
-
-get '/' do
-  @hide_koan_name = true
-  haml :intro
-end
-
