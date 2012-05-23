@@ -6,7 +6,6 @@
     %script{:src => '/javascripts/jquery-1.4.4.min.js'}
     - if @end
       %script{:src => "http://cloud.github.com/downloads/malsup/cycle/jquery.cycle.all.latest.js"}
-    %script{:src => '/javascripts/koans.js'}
     %script{:src => "http://tab-slide-out.googlecode.com/files/jquery.tabSlideOut.v1.3.js"}
 
     :javascript
@@ -36,6 +35,7 @@
       };
       googleAnalytics();
 
+    %script{:src => '/javascripts/koans.js'}
   %body
     #top_line
     %img#swoosh{:src => '/images/enso.gif'}

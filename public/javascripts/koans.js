@@ -1,13 +1,4 @@
-$(function () {
-  var firstFail = $(".failed:first"),
-      offset    = firstFail.offset(),
-      top       = offset ? offset.top : 0;
-
-  if($('.example form').length === 0){
-    firstFail.find("input:first").focus();
-  }
-  $("html,body").animate({scrollTop: top - 280}, 0);
-
+$(document).ready(function() {
   if($('#rotateTeam').length > 0){
     $('#rotateTeam').cycle({ fx: 'shuffle' });
   }
@@ -26,4 +17,15 @@ $(function () {
     }
     e.preventDefault();
   });
+
+  var firstFail = $(".failed:first"),
+      offset    = firstFail.offset(),
+      top       = offset ? offset.top : 0;
+
+  if($('.example form').length === 0){
+    if($('.passed').length){
+      window.scrollTo(0, top);
+    }
+    firstFail.find("input:first").focus();
+  }
 });
