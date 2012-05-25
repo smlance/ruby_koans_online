@@ -18,14 +18,17 @@ $(document).ready(function() {
     e.preventDefault();
   });
 
-  var firstFail = $(".failed:first"),
-      offset    = firstFail.offset(),
-      top       = offset ? offset.top : 0;
 
-  if($('.example form').length === 0){
-    if($('.passed').length){
-      window.scrollTo(0, top);
-    }
+  var notAnExamplePage = !$('.example form').length;
+  if(notAnExamplePage){
+    var firstFail = $(".failed:first");
     firstFail.find("input:first").focus();
+
+    var didPassFirst = $('.passed, .failed').eq(0).hasClass('passed');
+    if(didPassFirst){
+      var previousPassed = firstFail.prevAll('.passed').filter(':first');
+      var scrollSpot = previousPassed.offset().top + previousPassed.height() - 5;
+      window.scrollTo(0, scrollSpot);
+    }
   }
 });
