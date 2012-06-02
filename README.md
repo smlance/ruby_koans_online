@@ -24,12 +24,11 @@ Dependecies are handled by [npm](http://npmjs.org/). Ruby Koans Online is tested
 
 ### Development
 
-To start the development server, run `shotgun`. Shotgun is an automatic reloading version of the rackup command that's shipped with Rack. You can learn
-more about it [here](https://github.com/rtomayko/shotgun.git).
+To start the development server, run `rackup` and point your browser to `localhost:9292`
 
 #### Running the tests:
 
-1. Start the app using `shotgun`. Ensure it's running on port `9393` (the default).
+1. Start the app using `rackup`. Ensure it's running on port `9292` (the default).
 2. Run `node suite.js`.
 
 ## Contributing
