@@ -86,7 +86,11 @@ end
 
 def runnable_code(session={})
   unique_id = rand(10000)
-  code = current_koan.swap_user_values(input,request,session).gsub(" ::About", " About").gsub("File", "FakeFile").gsub(" open(", "FakeFile.gimme(")
+  code = current_koan.swap_user_values(input,request,session).
+    gsub(" ::About", " About").
+    gsub("File", "FakeFile").
+    gsub(" open(", "FakeFile.gimme(").
+    gsub("ENV", "{:hacker => \"AH AH AH! YOU DIDN\'T SAY THE MAGIC WORD!\"}")
   index = code.rindex(/class About\w*? \< EdgeCase::Koan/)
   global_code = code[0...index]
   reset_global_classes = (global_code.scan(/class (\w+)/) + CLASSES_ALLOWED).collect{|c| "Object.send(:remove_const, :#{c}) if defined? #{c};" }.join
