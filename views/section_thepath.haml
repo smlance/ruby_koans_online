@@ -1,69 +1,62 @@
 %section#the_path
-  %h2 The Path to Enlightenment
+  %h2
+    = t('path.title')
 
   %p
-    Each page consists of a number of tests that you have to complete and any information you
-    might require to help you make those test pass.  You can run the tests by clicking the
-    Meditate button at any time or by pressing the Enter key when filling in any of the tests.
+    = t('path.explanation')
 
 
-  %h3 Red, Green, Refactor
+  %h3
+    = t('path.subtitle')
 
   %p
-    In test-driven development (TDD) the mantra has always been
+    = t('path.tdd.title')
     %ol
       %li
-        %span.red red
-        \: write a failing test and run it,
+        %span.red= t('terms.red')
+        \:
+        = t('path.tdd.red-explanation')
+
       %li
-        %span.green green
-        \: write just enough code to make the test pass, and
+        %span.green= t('terms.green')
+        \:
+        = t('path.tdd.green-explanation')
+
       %li
-        %span.refactor refactor
-        \: look at the code to see if you can make it any better.
+        %span.refactor= t('terms.refactor')
+        \:
+        = t('path.tdd.refactor-explanation')
+
   %p
-    With the Ruby Koans Online,
+    = t('path.koans-online.title')
     %ol
       %li
-        the tests will start in the failing state ( background is
-        %span.red red
-        ),
+        = t('path.koans-online.red-explanation')
       %li
-        type what you expect the result(s) to be in the input box(es) provided to make the test pass (
-        background becomes
-        %span.green green
-        ),
+        = t('path.koans-online.green-explanation')
       %li
-        then take a moment to reflect upon the test to see what it is teaching you and, if required,
-        improve the code to better communicate its intent (
-        %span.refactor refactor
-        ).
+        = t('path.koans-online.refactor-explanation')
 
   .greenbox
-    %h3{:style => "color: green"} The happy path
+    %h3{:style => "color: green"}
+      = t('path.green.title')
 
     %p
-      For example, type <i>true</i> in the input box below and then click the Meditate button or hit Enter
-      to turn the box green.
+      = t('path.green.explanation')
 
     =haml :example
 
   .redbox
-    %h3{:style => "color: red"} Straying from the path
+    %h3{:style => "color: red"} 
+      = t('path.red.title')
 
     %p
-      If the results were not what you expected, the Koans will guide you back to the enlightened path with a hint.
-    %p
-      Type <i>false</i> in the box below to see the hint displayed.
+      = t('path.red.explanation')
 
     =haml :example
 
     %p
-      %h3 "<em>Wait, but it said it expected <u>false</u>! What gives!?</em>"
-      The wording comes from the TestUnit framework.<br/>
-      In TDD you will write a test with an expectation of how you want the code to behave
-      and then write the actual code to make that test pass.<br/>
-      %br
-      This might seem confusing in the case of the Ruby Koans, where most of the test is usually written for you.<br/>
-      In Koans you are providing what <em>your</em> expectation is, so the test framework reports <em>your</em> expectations vs actual results.
+      %h3
+        = t('path.red.question')
+      = t('path.red.answer')
 

@@ -154,12 +154,29 @@ def next_page
   end
 end
 
+### Internationalization
+I18n.load_path += Dir[File.join(File.dirname(__FILE__), 'locales', '*.yml').to_s]
+I18n.default_locale = :en
+
+def get_locale
+  # Pulls the browser's language
+  @env["HTTP_ACCEPT_LANGUAGE"][0,2]
+end
+
+helpers do
+  def t(*args)
+    # Just a simple alias
+    I18n.t(*args)
+  end
+end
+
 get '/:koan' do
   do_stuff
 end
 
 get '/' do
   return do_stuff if params[:koan]
+  @locale = get_locale || 'en'
   @hide_koan_name = true
   haml :intro
 end
@@ -178,3 +195,4 @@ def do_stuff
     return haml next_page
   end
 end
+

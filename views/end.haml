@@ -3,7 +3,7 @@
 %br
 %br
 %br
-THE END
+= t('end.title')
 %br
 %br
 %br
@@ -11,9 +11,10 @@ THE END
 %br
 %br
 %br
-Ruby Koans has heightened your awareness.
+= t('end.explanation')
 %div#rotateTeam
   - edgecaser_images.shuffle.each do |image_link|
     %img{:src => "http://edgecase.com/#{image_link}"}
 %div#teamLabel
-  %a{:href => 'http://edgecase.com/about', :target => '_blank'}THE TEAM
+  %a{:href => 'http://edgecase.com/about', :target => '_blank'}
+    = t('end.team')

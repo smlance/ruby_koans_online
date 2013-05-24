@@ -1,0 +1,91 @@
+en:
+  terms:
+    red: red
+    green: green
+    refactor: refactor
+  intro:
+    start: Star the Koans >>
+    title: Ruby Koans Online
+    koans: >
+      The Ruby Koans are a great way to learn about the Ruby language.
+    koans-online: >
+      This Ruby Koans <em>Online</em> is an abridged version of the Koans in the convenience of a browser.
+    suggestion: >
+      However, if this is your first time through the Koans, we recommend you
+      read the introduction below to find out how the Koans work.
+  issues:
+    title: Known Issues
+    chrome: >
+      In Chrome, hitting the browser back button from the Koans error page
+      will cause the browser to move some of your answers around.
+      Either don't use Chrome or refresh the page after hitting your
+      browser back button to get Chrome to put your answers in their
+      proper places.
+      <a href='https://github.com/edgecase/ruby_koans_online/issues/10#issuecomment-4678002' target='_blank'>Documented Issue</a>
+    contact: >
+      If you encounter any other issues whilst using the Ruby Koans Online, please contact us using the
+      Contact button at the top right of the window.
+    thanks: Thanks, the Ruby Koans Online Team
+  path:
+    title: The Path to Enlightenment
+    explanation: >
+      Each page consists of a number of tests that you have to complete and any information you
+      might require to help you make those test pass.  You can run the tests by clicking the
+      Meditate button at any time or by pressing the Enter key when filling in any of the tests.
+    subtitle: Red, Green, Refactor
+    tdd:
+      title: In test-driven development (TDD) the mantra has always been
+      red-explanation: write a failing test and run it,
+      green-explanation: write just enough code to make the test pass, and
+      refactor-explanation: look at the code to see if you can make it any better.
+    koans-online:
+      title: With the Ruby Koans Online,
+      red-explanation: >
+        the tests will start in the failing state (background is <span class="green">green</span>)
+      green-explanation: >
+        type what you expect the result(s) to be in the input box(es) provided to make the test pass (
+        background becomes <span class="green">green</span>)
+      refactor-explanation: >
+        then take a moment to reflect upon the test to see what it is teaching you and, if required,
+        improve the code to better communicate its intent (<span class="refactor">refactor</span>)
+
+    green:
+      title: The happy path
+      explanation: >
+        For example, type <i>true</i> in the input box below and then click the Meditate button or hit Enter
+        to turn the box green.
+    red:
+      title: Straying from the path
+      explanation: >
+        If the results were not what you expected, the Koans will guide you back to the enlightened path with a hint.
+        <br/>
+        Type <i>false</i> in the box below to see the hint displayed.
+      question: <em>Wait, but it said it expected <u>false</u>! What gives!?</em>
+      answer: >
+        The wording comes from the TestUnit framework.<br/>
+        In TDD you will write a test with an expectation of how you want the code to behave
+        and then write the actual code to make that test pass.<br/>
+        <br/>
+        This might seem confusing in the case of the Ruby Koans, where most of the test is usually written for you.<br/>
+        In Koans you are providing what <em>your</em> expectation is, so the test framework reports <em>your</em> expectations vs actual results.
+
+  world:
+    title: The Koans World
+    explantion: >
+      The koans are broken out into areas covering such topics as hashes, modules and classes.
+      Each of these are presented on their own page.
+      Each koan builds up your knowledge of Ruby and builds upon itself.
+
+  end:
+    title: THE END
+    explanation: Ruby Koans has heightened your awareness.
+    team: THE TEAM
+
+  actions:
+    click_to_submit: Click to submit Meditation or press Enter while in the form.
+    meditate: Meditate
+
+  next:
+    heighten: has heightened your awareness.
+    complete: complete
+    meditate-on: Meditate on

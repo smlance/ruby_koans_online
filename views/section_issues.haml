@@ -1,19 +1,14 @@
 %section#issues
-  %h3 Known Issues
+  %h3
+    = t('issues.title')
 
   %ul
     %li
-      In Chrome, hitting the browser back button from the Koans error page
-      will cause the browser to move some of your answers around.
-      Either don't use Chrome or refresh the page after hitting your
-      browser back button to get Chrome to put your answers in their
-      proper places.
-      %a{:href => 'https://github.com/edgecase/ruby_koans_online/issues/10#issuecomment-4678002', :target => '_blank'}Documented Issue
+      = t('issues.chrome')
 
   %p
-    If you encounter any other issues whilst using the Ruby Koans Online, please contact us using the
-    Contact button at the top right of the window.
+    = t('issues.contact')
 
   %p
-    Thanks, the Ruby Koans Online Team
+    = t('issues.thanks')
 

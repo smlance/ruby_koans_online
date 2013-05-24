@@ -1,9 +1,9 @@
 %h2= current_koan_name
-#{current_koan_name} has heightened your awareness.
+#{current_koan_name} #{t('next.heighten')}
 %br/
 %br/
-#{current_koan_count}/#{KOAN_FILENAMES.count} complete
+#{current_koan_count}/#{KOAN_FILENAMES.count} #{t('next.complete')}
 %br/
 %br/
-%a{:href => "/#{next_koan_name}"} Meditate on #{next_koan_name}
+%a{:href => "/#{next_koan_name}"} #{t('next.meditate-on')} #{next_koan_name}
 
