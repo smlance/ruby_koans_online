@@ -64,7 +64,7 @@ ms:
         Dalam TDD, anda akan menulis ujian dengan jangkaan bagaimana kode akan berfungsi
         dan selepas itu menulis kode yang akan membuat ujian itu lulus.<br/>
         <br/>
-        Dalam Ruby Koans ini akan memngelurikan kerana ujian telah ditulis untuk kamu.<br/>
+        Dalam Ruby Koans ini mungkin mengelirukan kerana ujian telah ditulis untuk kamu.<br/>
         Dalam Koans anda akan memasukkan apa yang <em>anda</em> rasa adalah jangkaan yang betul. Oleh kerana itu framework ujian akan melaporkan perbezaan di antara jangkaan kamu dengan jawapan sebenar.
 
   world:
