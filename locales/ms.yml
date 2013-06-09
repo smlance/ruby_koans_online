@@ -1,0 +1,89 @@
+ms:
+  terms:
+    red: merah
+    green: hijau
+    refactor: refactor
+  intro:
+    start: Mulakan Koans >>
+    title: Ruby Koans Online
+    koans: >
+      Ruby Koans adalah cara yang hebat untuk mempelajari Ruby.
+    koans-online: >
+      Ruby Koans <em>Online</em> adalah versi Koans yang dipendekkan supaya mudah dipaparkan di browser anda.
+    suggestion: >
+      Namun begitu, jikalau ini adalah kali pertama anda menggunakan Koans, kami rekomen anda
+      baca pendahuluan di bawah untuk mengethaui cara Koans ini berfungsi.
+  issues:
+    title: Isu yang diketahui
+    chrome: >
+      Di Chrome, penekanan butang balik dari muka errors
+      Koans akan menyebabkan sesetengah daripada jawapan anda keluar aturannya.
+      Untuk mengembalikan aturannya, tekan refresh.
+      <a href='https://github.com/edgecase/ruby_koans_online/issues/10#issuecomment-4678002' target='_blank'>Documented Issue</a>
+    contact: >
+      Jika anda terlihat isu lain apabila menggunakan Ruby Koans Online, tolong hubungi kami dengan menekan
+      butan Kontak yang berada di bahagian atas kanan window ini.
+    thanks: Terima kasih, Ruby Koans Online
+  path:
+    title: Jalan Menuju Ilmu
+    explanation: >
+      Setiap muka mengandungi beberapa ujian bersama dengan maklumat yang anda perlu untuk menyelesaikannya.
+      Anda boleh menjalankan ujian dengan menekan butang Tafakur pada bila-bila masa atau dengan menekan butan
+      Enter setelah selesai mengisi jawapan untuk ujian berkenaan.
+    subtitle: Merah, Hijau, Refactor
+    tdd:
+      title: Mantera pembangunan perisian yang di dorong ujian (TDD) adalah
+      red-explanation: tulis dan jalankan ujian yang gagal,
+      green-explanation: tulis cukup kod supaya ujian lulus,
+      refactor-explanation: periksa kod unutk menentukan cara kod boleh diperbaiki.
+    koans-online:
+      title: Dalam Ruby Koans Online,
+      red-explanation: >
+        ujian akan bermula dalam keadaan yang gagal (latarbelakang berwarna merah <span class="red">merah</span>)
+      green-explanation: >
+        untuk membuat ujian lulus, masukkan jawapan anda ke dalam kotak input yang disediakan (latarbelakang akan 
+        tukar ke warna hijau <span class="hijau">hijau</span>).
+      refactor-explanation: >
+        Setelah ujian lulus, luangkan sedikit masa untuk menentukan pengajaran ujian itu. Jika perlu, cuba perbaiki 
+        jawapan anda supaya maksud dan tujuannya lebih jelas.(<span class="refactor">refactor</span>)
+
+    green:
+      title: Jalan bahagia
+      explanation: >
+        Sebagai contoh, masukkan <i>true</i> di kotak input dibawah and tekan butan Tafakur atau tekan Enter 
+        untuk menukarkan warna kotak ke hijau.
+    red:
+      title: Menyimpang dari jalan
+      explanation: >
+        Jikalau jawapan anda salah, Koans akan pandu anda memberi anda petunjuk untuk kembali ke jalan betul.
+        <br/>
+        Masukkan <i>false</i> ke kotak di bawah untuk melihat petunjuk ini.
+      question: <em>Eh, tetapi ia dijangka <u>false</u>! Kenapa begitu!?</em>
+      answer: >
+        Frasa diatas berasal dari framework TestUnit.<br/>
+        Dalam TDD, anda akan menulis ujian dengan jangkaan bagaimana kode akan berfungsi
+        dan selepas itu menulis kode yang akan membuat ujian itu lulus.<br/>
+        <br/>
+        Dalam Ruby Koans ini mungkin mengelirukan kerana ujian telah ditulis untuk kamu.<br/>
+        Dalam Koans anda akan memasukkan apa yang <em>anda</em> rasa adalah jangkaan yang betul. Oleh kerana itu framework ujian akan melaporkan perbezaan di antara jangkaan kamu dengan jawapan sebenar.
+
+  world:
+    title: Dunia Koans
+    explantion: >
+      Koans ini dibahagikan kepada beberapa bahagian yang merangkumi topik seperti hashes, modules dan classes.
+      Setiap bahagian ini dibahagikan kepada muka tersendiri.
+      Setiap koan akan membina atas pengetahuan Ruby anda.
+
+  end:
+    title: AKHIR
+    explanation: Ruby Koans telah meningkatkan ilmu anda.
+    team: TIM
+
+  actions:
+    click_to_submit: Tekan Tafakur atau tekan Enter semasa berada di kotak input untuk mengemukakan jawapan anda.
+    meditate: Tafakur
+
+  next:
+    heighten: telah meningkatkan kesedaran anda.
+    complete: habis
+    meditate-on: Tafakur
