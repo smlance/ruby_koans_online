@@ -158,27 +158,28 @@ end
 I18n.load_path += Dir[File.join(File.dirname(__FILE__), 'locales', '*.yml').to_s]
 I18n.default_locale = :en
 
-def get_locale
-  # Pulls the browser's language
-  @env["HTTP_ACCEPT_LANGUAGE"][0,2]
-end
-
 helpers do
-  def t(*args)
+  def t(path, options = {})
+    options[:locale] = @locale
+
     # Just a simple alias
-    I18n.t(*args)
+    I18n.t(path, options)
   end
 end
 
-get '/:koan' do
+get '/:locale/:koan' do
   do_stuff
 end
 
-get '/' do
+get '/:locale' do
   return do_stuff if params[:koan]
-  @locale = get_locale || 'en'
+  @locale = params[:locale]
   @hide_koan_name = true
   haml :intro
+end
+
+get '/' do
+  redirect '/en'
 end
 
 def do_stuff
