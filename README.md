@@ -26,6 +26,10 @@ Dependecies are handled by [npm](http://npmjs.org/). Ruby Koans Online is tested
 
 To start the development server, run `rackup` and point your browser to `localhost:9292`
 
+Alternatively, you could use `rerun`. This reloads the app for you when changes are detected.
+
+`rerun -p "**.*.{rb,ru,haml,css,js,yml}" rackup`
+
 #### Running the tests:
 
 1. Start the app using `rackup`. Ensure it's running on port `9292` (the default).
