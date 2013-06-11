@@ -1,5 +1,5 @@
 %h2= current_koan_name
-%form{:action => "/#{current_koan_name}"}
+%form{:action => "/#{@locale}/#{current_koan_name}"}
   .meditate{:nowrap => 'nowrap'}
     %input{:type => 'submit', :value => "#{t('actions.click_to_submit')}"}/
     .koans

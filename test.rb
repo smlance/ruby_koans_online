@@ -168,6 +168,7 @@ helpers do
 end
 
 get '/:locale/:koan' do
+  @locale = params[:locale]
   do_stuff
 end
 
