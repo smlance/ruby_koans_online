@@ -1,0 +1,87 @@
+vi:
+  terms:
+    red: đỏ
+    green: xanh
+    refactor: refactor
+  intro:
+    start: Bắt đầu học koans >>
+    title: Ruby Koans Online
+    koans: >
+      Ruby Koans là một cách học Ruby hiệu quả.
+    koans-online: >
+      Trang web Ruby Koans <em>Online</em> là một phiên bản thu nhỏ của Koans đưa đến với bạn trong sự tiện lợi của một trình duyệt.
+    suggestion: >
+      Nếu đây là lần đầu tiên bạn nghe nói về Ruby Koans, chúng tôi gợi ý bạn
+      đọc những chỉ dẫn sau để hiểu về cách học Koans.
+  issues:
+    title: Những vấn đề thường gặp
+    chrome: >
+      Khi sử dụng Chrome, nếu bạn ấn nút quay lại (Back) trên trình duyệt tại trang thông báo Koans bị lỗi,
+      những câu trả lời của bạn trong Koans trước sẽ không ở vị trí cũ. Tránh lỗi này bằng cách dùng một trình duyệt khác,
+      hoặc nhớ refresh mỗi khi bạn bấm nút quay lại và thấy câu trả lời của bạn không còn ở vị trí cũ.
+      In Chrome, hitting the browser back button from the Koans error page
+      <a href='https://github.com/neo/ruby_koans_online/issues/10#issuecomment-4678002' target='_blank'>Đọc thêm về vấn đề này</a>
+    contact: >
+      Nếu bạn gặp bất cứ vấn đề gì khác khi sử dụng Ruby Koans Online, xin hãy liên lạc với chúng tôi bằng nút
+      Liên hệ bên tay phải.
+    thanks: Cảm ơn bạn, Đội ngũ Ruby Koans Online
+  path:
+    title: Con đường tới giác ngộ
+    explanation: >
+      Mỗi trang liệt kê có một số test mà bạn phải hoàn thành và những thông tin cần thiết cho bạn để hoàn thành những test đó.
+      Bạn có thể chạy test bằng cách ấn vào nút "Thiền" bất cứ lúc nào hoăc ấn Enter khi điền thông tin vào những ô trống trong test.
+    subtitle: Xanh, Đỏ, Refactor
+    tdd:
+      title: Trong test-driven development, câu thần chú là 
+      red-explanation: viết một test "trượt",
+      green-explanation: viết vừa đủ code để làm test "đỗ", và
+      refactor-explanation: nhìn lại code và tìm cách cải tiến thêm. 
+    koans-online:
+      title: Với Ruby Koans Online,
+      red-explanation: >
+        test trong mỗi Koans bắt đầu ở trạng thái "trượt" (có màu nền màu <span class="red">đỏ</span>)
+      green-explanation: >
+        điền kết quả bạn cho là đúng vào những ô trống trong test để làm test "đỗ" (chuyển sang nền màu <span class="green">xanh</span>)
+      refactor-explanation: >
+        dành một phút suy ngẫm xem bạn học được điều gì về test vừa rồi và tìm cách cải tiến code bạn vừa viết
+        (<span class="refactor">refactor</span>)
+    green:
+      title: Con đường giác ngộ
+      explanation: >
+        Ví dụ: hãy điền <i>true</i> vào ô trống phía dưới và ấn nút "Thiền" hoặc ấn Enter để làm test "đỗ".
+    red:
+      title: Lạc bước
+      explanation: >
+        Nếu những gì bạn điền không chính xác, Koans sẽ hướng bạn về con đường giác ngộ với một gợi ý.
+        <br/>
+        Điền <i>false</i> vào ô trống dưới đây để nhìn thấy gợi ý.
+      question: <em>Đợi đã, nhưng nó nói nó muốn <u>false</u>! Thế thì tại sao..?</em>
+      answer: >
+        The wording comes from the TestUnit framework.
+        <br/>
+        In TDD you will write a test with an expectation of how you want the code to behave
+        and then write the actual code to make that test pass.
+        <br/>
+        This might seem confusing in the case of the Ruby Koans, where most of the test is usually written for you.<br/>
+        In Koans you are providing what <em>your</em> expectation is, so the test framework reports <em>your</em> expectations vs actual results.
+
+  world:
+    title: The Koans World
+    explantion: >
+      The koans are broken out into areas covering such topics as hashes, modules and classes.
+      Each of these are presented on their own page.
+      Each koan builds up your knowledge of Ruby and builds upon itself.
+
+  end:
+    title: THE END
+    explanation: Ruby Koans has heightened your awareness.
+    team: THE TEAM
+
+  actions:
+    click_to_submit: Click to submit Meditation or press Enter while in the form.
+    meditate: Thiền
+
+  next:
+    heighten: has heightened your awareness.
+    complete: đã hoàn thành
+    meditate-on: Thiền về

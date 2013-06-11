@@ -1,13 +1,13 @@
 %h2= current_koan_name
 %form{:action => "/#{current_koan_name}"}
   .meditate{:nowrap => 'nowrap'}
-    %input{:type => 'submit', :value => 'Click to submit Meditation or press Enter while in the form.'}/
+    %input{:type => 'submit', :value => "#{t('actions.click_to_submit')}"}/
     .koans
       = @inputs
 
   - if params[:error_panel]
     .error_panel
-      %input{:type => 'submit', :value => 'Meditate'}/
+      %input{:type => 'submit', :value => "#{t('actions.meditate')}"}/
       %br/
       Results
       = @pass_count
