@@ -4,7 +4,7 @@ en:
     green: green
     refactor: refactor
   intro:
-    start: Star the Koans >>
+    start: Start the Koans >>
     title: Ruby Koans Online
     koans: >
       The Ruby Koans are a great way to learn about the Ruby language.
